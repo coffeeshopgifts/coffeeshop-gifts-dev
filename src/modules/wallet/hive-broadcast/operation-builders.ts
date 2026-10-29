@@ -1,0 +1,147 @@
+import type {
+  CommentOp,
+  CommentOptionsOp,
+  CustomJsonOp,
+  VoteOp,
+} from './hive-operations';
+
+const HIVE_REBLOG_CUSTOM_JSON_ID = 'follow';
+
+/** Extension id 0: comment payout beneficiaries (Hive `comment_payout_beneficiaries`). */
+export type CommentOptionsBeneficiary = {
+  readonly account: string;
+  readonly weight: number;
+};
+
+export function buildCommentOptionsBeneficiaryExtension(
+  beneficiaries: readonly CommentOptionsBeneficiary[],
+): readonly [number, { beneficiaries: readonly CommentOptionsBeneficiary[] }] {
+  return [0, { beneficiaries: [...beneficiaries] }];
+}
+
+export function buildVoteOp(
+  voter: string,
+  author: string,
+  permlink: string,
+  weight: number,
+): VoteOp {
+  return { type: 'vote', voter, author, permlink, weight };
+}
+
+export function buildCommentOp(input: {
+  parent_author: string;
+  parent_permlink: string;
+  author: string;
+  permlink: string;
+  title: string;
+  body: string;
+  json_metadata: string;
+}): CommentOp {
+  return {
+    type: 'comment',
+    parent_author: input.parent_author,
+    parent_permlink: input.parent_permlink,
+    author: input.author,
+    permlink: input.permlink,
+    title: input.title,
+    body: input.body,
+    json_metadata: input.json_metadata,
+  };
+}
+
+export function buildCommentOptionsOp(input: {
+  author: string;
+  permlink: string;
+  max_accepted_payout: string;
+  allow_votes: boolean;
+  allow_curation_rewards: boolean;
+  percent_hbd?: number;
+  extensions?: readonly unknown[];
+}): CommentOptionsOp {
+  return {
+    type: 'comment_options',
+    author: input.author,
+    permlink: input.permlink,
+    max_accepted_payout: input.max_accepted_payout,
+    allow_votes: input.allow_votes,
+    allow_curation_rewards: input.allow_curation_rewards,
+    ...(input.percent_hbd !== undefined ? { percent_hbd: input.percent_hbd } : {}),
+    extensions: input.extensions ?? [],
+  };
+}
+
+export function buildCustomJsonOp(input: {
+  required_auths: readonly string[];
+  required_posting_auths: readonly string[];
+  id: string;
+  json: string;
+}): CustomJsonOp {
+  return {
+    type: 'custom_json',
+    required_auths: input.required_auths,
+    required_posting_auths: input.required_posting_auths,
+    id: input.id,
+    json: input.json,
+  };
+}
+
+/**
+ * Hive reblog via `custom_json` id `follow` and JSON `["reblog", { account, author, permlink }]`.
+ * @see https://developers.hive.io/tutorials-javascript/reblogging_post.html
+ */
+export function buildReblogOp(
+  account: string,
+  author: string,
+  permlink: string,
+): CustomJsonOp {
+  const json = JSON.stringify([
+    'reblog',
+    { account, author, permlink },
+  ]);
+  return buildCustomJsonOp({
+    required_auths: [],
+    required_posting_auths: [account],
+    id: HIVE_REBLOG_CUSTOM_JSON_ID,
+    json,
+  });
+}
+
+const HIVE_FOLLOW_CUSTOM_JSON_ID = 'follow';
+
+/**
+ * Standard Hive account follow (`custom_json` id `follow`, `what: ["blog"]`).
+ */
+export function buildHiveFollowOp(
+  follower: string,
+  following: string,
+): CustomJsonOp {
+  const json = JSON.stringify([
+    'follow',
+    { follower, following, what: ['blog'] as const },
+  ]);
+  return buildCustomJsonOp({
+    required_auths: [],
+    required_posting_auths: [follower],
+    id: HIVE_FOLLOW_CUSTOM_JSON_ID,
+    json,
+  });
+}
+
+/**
+ * Standard Hive account unfollow (`custom_json` id `follow`, `what: []`).
+ */
+export function buildHiveUnfollowOp(
+  follower: string,
+  following: string,
+): CustomJsonOp {
+  const json = JSON.stringify([
+    'follow',
+    { follower, following, what: [] as const },
+  ]);
+  return buildCustomJsonOp({
+    required_auths: [],
+    required_posting_auths: [follower],
+    id: HIVE_FOLLOW_CUSTOM_JSON_ID,
+    json,
+  });
+}
