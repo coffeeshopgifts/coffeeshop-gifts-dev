@@ -10,7 +10,7 @@ export async function crawlObjectIds(): Promise<string[]> {
   const version = getQueryApiVersion();
   const endpoint = `${base}/query/v${version}/objects/resolve`;
   const seen = new Set<string>(CRAWL_SEED_IDS);
-  const queue = [...CRAWL_SEED_IDS];
+  const queue: string[] = [...CRAWL_SEED_IDS];
 
   while (queue.length > 0 && seen.size < MAX_IDS) {
     const objectId = queue.shift();
