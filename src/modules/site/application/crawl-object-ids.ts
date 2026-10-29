@@ -3,7 +3,8 @@ import { CRAWL_SEED_IDS } from '@/config/site';
 
 import { asRecord, listChildren } from '../domain/object-fields';
 
-const MAX_IDS = 2500;
+const MAX_IDS = 200;
+const MAX_ID_LEN = 80;
 
 export async function crawlObjectIds(): Promise<string[]> {
   const base = getQueryApiUrl().replace(/\/$/, '');
@@ -33,6 +34,9 @@ export async function crawlObjectIds(): Promise<string[]> {
         continue;
       }
       for (const child of listChildren(fields)) {
+        if (child.object_id.length > MAX_ID_LEN) {
+          continue;
+        }
         if (!seen.has(child.object_id) && seen.size < MAX_IDS) {
           seen.add(child.object_id);
           queue.push(child.object_id);

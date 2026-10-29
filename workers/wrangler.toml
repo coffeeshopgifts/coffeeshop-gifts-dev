@@ -1,0 +1,7 @@
+name = "csg-api"
+main = "api-gateway.js"
+compatibility_date = "2025-10-01"
+account_id = "5d366c1e64d3489b3294d7ae68f0d5d5"
+
+[env.production]
+routes = [{ pattern = "api.coffeeshop.gifts/*", zone_name = "coffeeshop.gifts" }]
