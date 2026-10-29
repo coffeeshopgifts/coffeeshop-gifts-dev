@@ -1,5 +1,10 @@
 {
   "nav.home": "Home",
+  "nav.recipes": "Coffee Recipes",
+  "nav.talk": "Coffee Talk",
+  "nav.shop": "Shop",
+  "nav.map": "Coffee Map",
+  "nav.legal": "Legal",
   "nav.explore": "Explore",
   "nav.broadcast": "Broadcast",
   "home.title": "Waivio Pages Starter",

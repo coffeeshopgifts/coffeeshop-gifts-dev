@@ -6,8 +6,8 @@ import { SiteNav } from '@/components/site-nav';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Waivio Pages Starter',
-  description: 'Static Next.js starter for query-api and Hive Keychain',
+  title: 'CoffeeShop.Gifts',
+  description: 'Coffee recipes, shop, map, and community on the Open Data Layer',
 };
 
 export default function RootLayout({

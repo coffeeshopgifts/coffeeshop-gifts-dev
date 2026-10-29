@@ -76,6 +76,7 @@ body {
 .bg-secondary { background-color: var(--color-secondary); }
 .text-fg { color: var(--color-fg); }
 .text-fg-secondary { color: var(--color-fg-secondary); }
+.text-error { color: var(--color-error); }
 .text-accent-fg { color: var(--color-accent-fg); }
 .text-secondary-fg { color: var(--color-secondary-fg); }
 .text-error { color: var(--color-error); }

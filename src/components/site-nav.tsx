@@ -3,13 +3,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { NAV_LINKS } from '@/config/site';
 import { useI18n } from '@/i18n';
 
-const links = [
-  { href: '/', key: 'nav.home' },
-  { href: '/explore/', key: 'nav.explore' },
-  { href: '/broadcast/', key: 'nav.broadcast' },
-] as const;
+const links = [{ href: '/', key: 'nav.home' }, ...NAV_LINKS] as const;
 
 export function SiteNav() {
   const pathname = usePathname();

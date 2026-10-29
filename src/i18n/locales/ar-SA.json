@@ -1,5 +1,10 @@
 {
   "nav.home": "الرئيسية",
+  "nav.recipes": "وصفات القهوة",
+  "nav.talk": "حديث القهوة",
+  "nav.shop": "المتجر",
+  "nav.map": "خريطة القهوة",
+  "nav.legal": "قانوني",
   "nav.explore": "استكشاف",
   "nav.broadcast": "بث",
   "home.title": "Waivio Pages Starter",

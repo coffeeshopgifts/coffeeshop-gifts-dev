@@ -39,6 +39,9 @@ jobs:
           NEXT_PUBLIC_ODL_NETWORK: ${{ vars.ODL_NETWORK || 'odl-mainnet' }}
           NEXT_PUBLIC_HIVE_CUSTOM_JSON_ID: ${{ vars.HIVE_CUSTOM_JSON_ID || 'odl-mainnet' }}
 
+      - name: GitHub Pages extensionless paths
+        run: node scripts/gh-pages-extensionless.mjs
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
