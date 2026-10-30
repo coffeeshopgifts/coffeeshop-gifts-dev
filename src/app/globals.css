@@ -81,3 +81,130 @@ body {
 .text-secondary-fg { color: var(--color-secondary-fg); }
 .text-error { color: var(--color-error); }
 .border-border { border-color: var(--color-border); }
+
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 75px;
+  padding: 0 20px;
+  background: #fafbfc;
+}
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ba5523;
+  text-decoration: none;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.site-brand img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+.site-search {
+  flex: 1;
+  max-width: 600px;
+}
+.site-search input {
+  width: 100%;
+  height: 32px;
+  border: 0.8px solid #ba5523;
+  border-radius: 4px;
+  background: transparent;
+  padding: 0 10px;
+  font-size: 16px;
+  font-family: inherit;
+  color: inherit;
+}
+.site-login {
+  margin-left: auto;
+  color: #ba5523;
+  text-decoration: none;
+  font-size: 16px;
+}
+.site-banner img {
+  display: block;
+  width: 100%;
+  height: 288px;
+  object-fit: cover;
+}
+.site-menu {
+  background: #fafbfc;
+  padding: 8px 20px 16px;
+}
+.site-menu ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 25px;
+  color: #ba5523;
+  text-decoration: none;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.site-menu a.is-active {
+  font-weight: 600;
+}
+.site-main {
+  max-width: 1472px;
+  margin: 0 auto;
+  padding: 16px 20px 40px;
+}
+.object-title {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ba5523;
+}
+.object-description {
+  margin: 0 0 20px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+.object-hero {
+  display: block;
+  max-width: 358px;
+  height: auto;
+  margin: 0 0 20px;
+}
+.checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.checklist-item {
+  width: 287px;
+}
+.checklist-item a {
+  display: block;
+  color: #ba5523;
+  text-decoration: none;
+  font-size: 16px;
+}
+.checklist-item img,
+.checklist-placeholder {
+  display: block;
+  width: 287px;
+  height: 287px;
+  object-fit: cover;
+  background: #ececec;
+}
+.checklist-name {
+  display: block;
+  padding-top: 8px;
+}

@@ -6,24 +6,18 @@ import { usePathname } from 'next/navigation';
 import { NAV_LINKS } from '@/config/site';
 import { useI18n } from '@/i18n';
 
-const links = [{ href: '/', key: 'nav.home' }, ...NAV_LINKS] as const;
-
 export function SiteNav() {
   const pathname = usePathname();
   const { t } = useI18n();
 
   return (
-    <nav className="border-b border-border bg-surface">
-      <ul className="mx-auto flex max-w-container-content gap-4 px-gutter py-3">
-        {links.map((link) => {
-          const active = pathname === link.href || pathname === link.href.replace(/\/$/, '');
+    <nav className="site-menu">
+      <ul>
+        {NAV_LINKS.map((link) => {
+          const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
           return (
             <li key={link.href}>
-              <Link
-                href={link.href}
-                suppressHydrationWarning
-                className={`text-body-sm ${active ? 'text-fg font-semibold' : 'text-fg-secondary'}`}
-              >
+              <Link href={link.href} suppressHydrationWarning className={active ? 'is-active' : undefined}>
                 {t(link.key)}
               </Link>
             </li>

@@ -33,6 +33,7 @@ export type ListChild = {
   title: string | null;
   description: string | null;
   image: string | null;
+  listItemsCount: number | null;
 };
 
 export function listChildren(fields: Record<string, unknown>): ListChild[] {
@@ -47,6 +48,7 @@ export function listChildren(fields: Record<string, unknown>): ListChild[] {
       continue;
     }
     const nested = asRecord(rec.fields) ?? {};
+    const count = rec.listItemsCount;
     children.push({
       object_id: rec.object_id,
       object_type: typeof rec.object_type === 'string' ? rec.object_type : 'list',
@@ -54,7 +56,31 @@ export function listChildren(fields: Record<string, unknown>): ListChild[] {
       title: objectTitle(nested),
       description: objectDescription(nested),
       image: objectImage(nested),
+      listItemsCount: typeof count === 'number' ? count : null,
     });
   }
-  return children;
+  const sort = asRecord(fields.sortCustom);
+  const include = sort && Array.isArray(sort.include) ? sort.include.filter((id): id is string => typeof id === 'string') : [];
+  if (include.length === 0) {
+    return children;
+  }
+  const byId = new Map(children.map((child) => [child.object_id, child]));
+  const ordered: ListChild[] = [];
+  for (const id of include) {
+    const child = byId.get(id);
+    if (child) {
+      ordered.push(child);
+      byId.delete(id);
+    }
+  }
+  for (const child of children) {
+    if (byId.has(child.object_id)) {
+      ordered.push(child);
+    }
+  }
+  return ordered;
+}
+
+export function pageContentHtml(fields: Record<string, unknown>): string | null {
+  return stringField(fields, 'pageContent');
 }
